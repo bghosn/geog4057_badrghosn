@@ -29,9 +29,10 @@ def project2(project_name,csv_path, raster_path, shapefile_path):
         print(e)  
         return  
     
-    
+    sr_wgs84 = arcpy.SpatialReference(4326)
     geom_list = []
-    with arcpy.da.SearchCursor(shapefile_path,['SHAPE@XY'],spatial_reference=4326) as cursor:
+    with arcpy.da.SearchCursor(shapefile_path, ['SHAPE@XY'], spatial_reference=sr_wgs84) as cursor:
+
         for row in cursor:
             X,Y = row[0]
             geom = ee.Geometry.Point([X,Y])
@@ -48,9 +49,9 @@ def project2(project_name,csv_path, raster_path, shapefile_path):
             i += 1
        
 if __name__ == "__main__":     
-    csv_path = r"C:\Users\bghosn2\Documents\geog4057\Project 2\boundary.csv"
-    raster_path = r"C:\Users\bghosn2\Documents\geog4057\Project 2\flood_2class.tif"
-    shapefile_path = r"C:\Users\bghosn2\Documents\geog4057\Project 2\boundary.shp"
+    csv_path = r"C:\Users\admin\Desktop\Project 2\boundary.csv"
+    raster_path = r"C:\Users\admin\Desktop\Project 2\flood_2class.tif"
+    shapefile_path = r"C:\Users\admin\Desktop\Project 2\boundary.shp"
     project_name = "ee-bghosn4"
 
     project2(project_name,csv_path,raster_path,shapefile_path)
